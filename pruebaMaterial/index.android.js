@@ -1,53 +1,72 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
  */
+
+ var MOCKED_MOVIES_DATA = [
+    {title: 'Title', year: '2015', posters: {thumbnail: 'http://i.imgur.com/UePbdph.jpg'}},
+  ];
 
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  Image,
   StyleSheet,
   Text,
-  View
+  ListView,
+  View,
+  Alert,
+  TouchableHighlight,
+  ToolbarAndroid,
+  Navigator
 } from 'react-native';
 
-class pruebaMaterial extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
+import { Subheader, Divider, List, Icon, Avatar, COLOR, IconToggle } from 'react-native-material-design';
+import { Toolbar as MaterialToolbar } from 'react-native-material-design';
+import GiftedSpinner from 'react-native-gifted-spinner';
+var Tarjeta = require('./src/tarjeta/tarjeta.js')
+var Mariachis = require('./src/mariachis/mariachis.js')
+var Uno = require('./src/tarjeta/uno.js')
+var Dos = require('./src/tarjeta/dos.js')
+var Tres = require('./src/tarjeta/tres.js')
+var Cuatro = require('./src/tarjeta/cuatro.js')
+
+
+var ROUTES = {
+  tarjeta: Tarjeta,
+  mariachis: Mariachis,
+  uno: Uno,
+  dos: Dos,
+  tres: Tres,
+  cuatro: Cuatro
+};
+
+
+
+
+class AwesomeProject extends Component {
+  
+
+ render() {
+    return(
+    <Navigator 
+         //style={styles.container}
+         initialRoute={{name:'mariachis'}}
+         renderScene={function(route, navigator){
+              var Component = ROUTES[route.name];
+              return <Component route={route} navigator={navigator}/>
+            }}
+         //configureScene={() => {Navigator.SceneConfigs.FloatFromBottom}}
+         />
+  
+  )}
+
+
+ 
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
-AppRegistry.registerComponent('pruebaMaterial', () => pruebaMaterial);
+AppRegistry.registerComponent('pruebaMaterial', () => AwesomeProject);
+
+
+
